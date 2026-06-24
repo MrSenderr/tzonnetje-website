@@ -28,13 +28,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 3rem 1.5rem 2rem;
+      padding: 4.5rem 1.5rem 2rem;
     }
 
     /* LOGO */
     .logo {
-      width: 180px;
-      height: 180px;
+      width: 220px;
+      height: 220px;
       margin-bottom: 2.5rem;
     }
 
@@ -242,7 +242,10 @@
     /* MOBILE */
     @media (max-width: 480px) {
       .wb-card { flex-direction: column; text-align: center; }
-      .count-block { padding: 1rem 1.1rem .75rem; min-width: 58px; }
+      .countdown { width: 100%; max-width: 340px; }
+      .count-block { padding: .85rem .5rem .7rem; min-width: 0; flex: 1; }
+      .count-num { font-size: 1.6rem; }
+      .count-unit { font-size: .48rem; letter-spacing: .12em; }
     }
   </style>
 </head>

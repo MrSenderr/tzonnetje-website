@@ -244,6 +244,8 @@
       .count-block { padding: .85rem .6rem .7rem; min-width: 0; flex: 1; }
       .count-num { font-size: 1.5rem; }
       .count-unit { font-size: .42rem; letter-spacing: 0; }
+      .count-unit[data-short] { font-size: 0; }
+      .count-unit[data-short]::after { content: attr(data-short); font-size: .42rem; letter-spacing: .08em; }
     }
   </style>
 </head>
@@ -272,11 +274,11 @@
       </div>
       <div class="count-block">
         <span class="count-num" id="minutes">—</span>
-        <span class="count-unit">minuten</span>
+        <span class="count-unit" data-short="min">minuten</span>
       </div>
       <div class="count-block">
         <span class="count-num" id="seconds">—</span>
-        <span class="count-unit">seconden</span>
+        <span class="count-unit" data-short="sec">seconden</span>
       </div>
     </div>
   </div>

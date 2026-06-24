@@ -6,259 +6,252 @@
   <title>Snackerie 't Zonnetje — We zijn er bijna!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --teal: #0B4A47;
-      --teal-dark: #083836;
-      --cream: #EDE8CE;
-      --cream-dim: rgba(237, 232, 206, 0.75);
-      --cream-subtle: rgba(237, 232, 206, 0.15);
+      --teal:     #003a41;
+      --cream:    #f0ebd5;
+      --cream-60: rgba(240,235,213,.6);
+      --cream-20: rgba(240,235,213,.15);
     }
 
+    html, body { height: 100%; }
+
     body {
-      background-color: var(--teal);
+      background: var(--teal);
       color: var(--cream);
-      font-family: 'Libre Baskerville', Georgia, serif;
+      font-family: 'Playfair Display', Georgia, serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1.5rem;
-      overflow-x: hidden;
+      padding: 3rem 1.5rem 2rem;
     }
 
-    /* subtle grain overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .page {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* ── LOGO ── */
-    .logo-wrap {
+    /* LOGO */
+    .logo {
+      width: 180px;
+      height: 180px;
       margin-bottom: 2.5rem;
     }
 
-    .logo-wrap img {
-      width: 220px;
-      max-width: 60vw;
-      filter: drop-shadow(0 4px 24px rgba(0,0,0,0.35));
-    }
-
-    /* ── DIVIDER ── */
-    .ornament {
+    /* RULE */
+    .rule {
+      width: 100%;
+      max-width: 360px;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: .75rem;
       margin: 0 auto 2.5rem;
-      max-width: 340px;
-      color: var(--cream-dim);
-      font-size: 1.1rem;
-      letter-spacing: 0.15em;
+      color: var(--cream-60);
+      font-size: .7rem;
+      letter-spacing: .3em;
     }
-    .ornament::before,
-    .ornament::after {
+    .rule::before, .rule::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--cream-dim);
+      background: currentColor;
     }
 
-    /* ── HEADLINE ── */
-    .headline {
+    /* HEADING */
+    .eyebrow {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
-      letter-spacing: 0.04em;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .3em;
       text-transform: uppercase;
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
-    }
-
-    .sub {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: var(--cream-dim);
-      line-height: 1.6;
-      margin-bottom: 3rem;
-    }
-
-    /* ── COUNTDOWN ── */
-    .countdown-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--cream-dim);
+      color: var(--cream-60);
+      text-align: center;
       margin-bottom: 1rem;
     }
 
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.75rem);
+      font-weight: 400;
+      font-style: italic;
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+
+    .subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(.85rem, 2.5vw, 1rem);
+      font-weight: 400;
+      color: var(--cream-60);
+      text-align: center;
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto 3rem;
+    }
+
+    .subtitle strong {
+      color: var(--cream);
+      font-weight: 600;
+    }
+
+    /* COUNTDOWN */
+    .countdown-wrap { text-align: center; margin-bottom: 3rem; }
+
     .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-bottom: 3.5rem;
-      flex-wrap: wrap;
+      display: inline-flex;
+      gap: 0;
+      border: 1px solid var(--cream-60);
     }
 
     .count-block {
-      background: var(--cream-subtle);
-      border: 1px solid rgba(237,232,206,0.2);
-      border-radius: 6px;
-      padding: 1rem 1.4rem 0.8rem;
-      min-width: 80px;
+      padding: 1.25rem 1.75rem 1rem;
+      min-width: 72px;
+      text-align: center;
+      position: relative;
+    }
+
+    .count-block + .count-block::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 20%; bottom: 20%;
+      width: 1px;
+      background: var(--cream-60);
     }
 
     .count-num {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: clamp(2rem, 6vw, 3rem);
-      line-height: 1;
       display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.02em;
     }
 
     .count-unit {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--cream-dim);
-      margin-top: 0.3rem;
       display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .55rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--cream-60);
+      margin-top: .4rem;
     }
 
-    /* ── OPENING DATE BADGE ── */
-    .date-badge {
+    /* DATE PILL */
+    .date-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: .6rem;
       background: var(--cream);
-      color: var(--teal-dark);
-      border-radius: 50px;
-      padding: 0.75rem 1.75rem;
+      color: var(--teal);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      letter-spacing: 0.05em;
+      font-size: clamp(.8rem, 2.5vw, .95rem);
+      font-weight: 700;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      margin-bottom: 4rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      padding: .7rem 1.75rem;
+      border-radius: 100px;
+      margin-bottom: 3.5rem;
     }
 
-    .date-badge .sun {
-      font-size: 1.4em;
-    }
+    .date-pill span { opacity: .5; }
 
-    /* ── WERKENBIJ CARD ── */
-    .werkenbij-wrap {
-      border-top: 1px solid rgba(237,232,206,0.2);
+    /* WERKENBIJ */
+    .werkenbij {
+      width: 100%;
+      max-width: 540px;
+      border-top: 1px solid var(--cream-20);
       padding-top: 2.5rem;
     }
 
-    .werkenbij-label {
+    .wb-label {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-size: .6rem;
+      letter-spacing: .28em;
       text-transform: uppercase;
-      color: var(--cream-dim);
-      margin-bottom: 0.75rem;
+      color: var(--cream-60);
+      text-align: center;
+      margin-bottom: 1.25rem;
     }
 
-    .werkenbij-card {
-      background: var(--cream-subtle);
-      border: 1px solid rgba(237,232,206,0.2);
-      border-radius: 12px;
-      padding: 1.75rem 2rem;
-      text-align: left;
+    .wb-card {
+      border: 1px solid var(--cream-20);
+      padding: 1.5rem 1.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
-      flex-wrap: wrap;
     }
 
-    .werkenbij-card .copy h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      margin-bottom: 0.4rem;
+    .wb-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-style: italic;
+      margin-bottom: .35rem;
     }
 
-    .werkenbij-card .copy p {
-      font-size: 0.9rem;
-      color: var(--cream-dim);
-      line-height: 1.5;
+    .wb-card p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .8rem;
+      color: var(--cream-60);
+      line-height: 1.55;
     }
 
-    .btn-werkenbij {
+    .wb-btn {
+      flex-shrink: 0;
       display: inline-block;
-      background: var(--cream);
-      color: var(--teal-dark);
+      border: 1px solid var(--cream);
+      color: var(--cream);
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
+      padding: .65rem 1.25rem;
+      transition: background .18s, color .18s;
       white-space: nowrap;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     }
 
-    .btn-werkenbij:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    .wb-btn:hover {
+      background: var(--cream);
+      color: var(--teal);
     }
 
-    /* ── FOOTER ── */
-    .footer {
-      margin-top: 3rem;
-      font-size: 0.78rem;
-      color: rgba(237,232,206,0.4);
-      letter-spacing: 0.08em;
+    /* FOOTER */
+    footer {
+      margin-top: 2.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cream-60);
+      opacity: .5;
+      text-align: center;
     }
 
-    /* ── MOBILE TWEAKS ── */
+    /* MOBILE */
     @media (max-width: 480px) {
-      .werkenbij-card {
-        flex-direction: column;
-        text-align: center;
-      }
-      .werkenbij-card .copy { text-align: center; }
+      .wb-card { flex-direction: column; text-align: center; }
+      .count-block { padding: 1rem 1.1rem .75rem; min-width: 58px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
 
-    <div class="logo-wrap">
-      <img src="logo-tzonnetje.png" alt="Snackerie 't Zonnetje" />
-    </div>
+  <img class="logo" src="logo.svg" alt="Snackerie 't Zonnetje" />
 
-    <div class="ornament">✦</div>
+  <div class="rule">✦</div>
 
-    <h1 class="headline">We zijn er bijna!</h1>
-    <p class="sub">
-      We hebben even een pauze genomen, maar de friet wordt alweer warm gehouden.<br>
-      Op <strong>5 juli om 12:00</strong> zijn we weer gewoon voor je open!
-    </p>
+  <p class="eyebrow">Even een pauze</p>
+  <h1>We zijn er bijna!</h1>
+  <p class="subtitle">
+    De friet wordt alweer warm gehouden.<br>
+    Op <strong>zaterdag 5 juli om 12:00 uur</strong><br>zijn we gewoon weer voor je open.
+  </p>
 
-    <div class="countdown-label">Nog te gaan</div>
+  <div class="countdown-wrap">
     <div class="countdown">
       <div class="count-block">
         <span class="count-num" id="days">—</span>
@@ -277,50 +270,41 @@
         <span class="count-unit">seconden</span>
       </div>
     </div>
-
-    <div class="date-badge">
-      <span class="sun">☀️</span>
-      Zaterdag 5 juli &nbsp;·&nbsp; 12:00 uur
-    </div>
-
-    <div class="werkenbij-wrap">
-      <p class="werkenbij-label">Kom jij ons team versterken?</p>
-      <div class="werkenbij-card">
-        <div class="copy">
-          <h3>Werken bij 't Zonnetje</h3>
-          <p>We zijn altijd op zoek naar leuke mensen. Bekijk onze vacatures en kom bij het gezelligste team van Wervershoof!</p>
-        </div>
-        <a class="btn-werkenbij" href="https://werkenbij.snackerietzonnetje.nl" target="_blank" rel="noopener">
-          Bekijk vacatures →
-        </a>
-      </div>
-    </div>
-
-    <p class="footer">Snackerie 't Zonnetje &nbsp;·&nbsp; Wervershoof &nbsp;·&nbsp; Sinds 1959</p>
   </div>
+
+  <div class="date-pill">
+    Zaterdag 5 juli <span>·</span> 12:00 uur
+  </div>
+
+  <div class="werkenbij">
+    <p class="wb-label">Kom jij ons team versterken?</p>
+    <div class="wb-card">
+      <div>
+        <h3>Werken bij 't Zonnetje</h3>
+        <p>We zijn altijd op zoek naar leuke mensen. Bekijk onze vacatures en kom bij het gezelligste team van Wervershoof!</p>
+      </div>
+      <a class="wb-btn" href="https://werkenbij.snackerietzonnetje.nl" target="_blank" rel="noopener">
+        Vacatures&nbsp;→
+      </a>
+    </div>
+  </div>
+
+  <footer>Snackerie 't Zonnetje &nbsp;·&nbsp; Wervershoof &nbsp;·&nbsp; Sinds 1959</footer>
 
   <script>
     const target = new Date('2026-07-05T12:00:00');
-
     function pad(n) { return String(n).padStart(2, '0'); }
-
     function tick() {
       const diff = target - Date.now();
       if (diff <= 0) {
-        document.querySelector('.countdown').style.display = 'none';
-        document.querySelector('.countdown-label').textContent = 'We zijn open!';
+        document.querySelector('.countdown-wrap').innerHTML = '<p style="font-family:Montserrat,sans-serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-60)">We zijn open!</p>';
         return;
       }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('days').textContent    = pad(d);
-      document.getElementById('hours').textContent   = pad(h);
-      document.getElementById('minutes').textContent = pad(m);
-      document.getElementById('seconds').textContent = pad(s);
+      document.getElementById('days').textContent    = pad(Math.floor(diff / 86400000));
+      document.getElementById('hours').textContent   = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById('minutes').textContent = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById('seconds').textContent = pad(Math.floor((diff % 60000) / 1000));
     }
-
     tick();
     setInterval(tick, 1000);
   </script>

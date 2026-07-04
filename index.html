@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snackerie 't Zonnetje — We zijn er bijna!</title>
+  <title>Snackerie 't Zonnetje — Wervershoof</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,7 +20,7 @@
     body {
       background: var(--teal);
       color: var(--cream);
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -29,21 +29,19 @@
       padding: 4rem 1.5rem 3rem;
     }
 
-    /* LOGO */
     .logo {
       width: 220px;
       height: 220px;
       margin-bottom: 2.5rem;
     }
 
-    /* RULE */
     .rule {
       width: 100%;
       max-width: 360px;
       display: flex;
       align-items: center;
       gap: .75rem;
-      margin: 0 auto 2.5rem;
+      margin: 0 auto 2.75rem;
       color: var(--cream-60);
       font-size: .7rem;
       letter-spacing: .3em;
@@ -55,108 +53,70 @@
       background: currentColor;
     }
 
-    /* HEADING */
-    .eyebrow {
-      font-family: 'Montserrat', sans-serif;
-      font-size: .65rem;
-      font-weight: 700;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--cream-60);
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(1.75rem, 5vw, 2.75rem);
-      font-weight: 800;
-      font-style: normal;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      text-align: center;
-      line-height: 1.15;
-      margin-bottom: .75rem;
-    }
-
-    .subtitle {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(.85rem, 2.5vw, 1rem);
-      font-weight: 400;
-      color: var(--cream-60);
-      text-align: center;
-      line-height: 1.7;
-      max-width: 420px;
-      margin: 0 auto 3rem;
-    }
-
-    .subtitle strong {
-      color: var(--cream);
-      font-weight: 600;
-    }
-
-    /* COUNTDOWN */
-    .countdown-wrap { text-align: center; margin-bottom: 3rem; }
-
-    .countdown {
-      display: inline-flex;
-      gap: 0;
-      border: 1px solid var(--cream-60);
-    }
-
-    .count-block {
-      padding: 1.25rem 1.75rem 1rem;
-      min-width: 72px;
-      text-align: center;
-      position: relative;
-    }
-
-    .count-block + .count-block::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 20%; bottom: 20%;
-      width: 1px;
-      background: var(--cream-60);
-    }
-
-    .count-num {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: .02em;
-    }
-
-    .count-unit {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: .55rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--cream-60);
-      margin-top: .4rem;
-    }
-
-    /* DATE PILL */
-    .date-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: .6rem;
+    /* ORDER BUTTON */
+    .order-btn {
+      display: inline-block;
       background: var(--cream);
       color: var(--teal);
+      text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(.8rem, 2.5vw, .95rem);
-      font-weight: 700;
-      letter-spacing: .1em;
+      font-size: .9rem;
+      font-weight: 800;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      padding: .7rem 1.75rem;
+      padding: 1.1rem 2.5rem;
       border-radius: 100px;
-      margin-bottom: 3.5rem;
+      transition: opacity .18s, transform .18s;
+      margin-bottom: 3rem;
+    }
+    .order-btn:hover {
+      opacity: .85;
+      transform: translateY(-1px);
     }
 
-    .date-pill span { opacity: .5; }
+    /* INFO BLOCK */
+    .info {
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid var(--cream-20);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .info-label {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--cream-60);
+    }
+
+    .info-value {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.6;
+    }
+
+    .info-value a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .info-value a:hover { opacity: .75; }
+
+    .info-divider {
+      height: 1px;
+      background: var(--cream-20);
+    }
 
     /* WERKENBIJ */
     .werkenbij {
@@ -167,7 +127,6 @@
     }
 
     .wb-label {
-      font-family: 'Montserrat', sans-serif;
       font-size: .85rem;
       font-weight: 700;
       letter-spacing: .18em;
@@ -187,19 +146,15 @@
     }
 
     .wb-card h3 {
-      font-family: 'Montserrat', sans-serif;
       font-size: .72rem;
       font-weight: 700;
-      font-style: normal;
       letter-spacing: .18em;
       text-transform: uppercase;
       margin-bottom: .6rem;
     }
 
     .wb-card p {
-      font-family: 'Montserrat', sans-serif;
       font-size: .9rem;
-      font-style: normal;
       color: var(--cream-60);
       line-height: 1.7;
     }
@@ -210,7 +165,6 @@
       border: 1px solid var(--cream);
       color: var(--cream);
       text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
       font-size: .7rem;
       font-weight: 700;
       letter-spacing: .14em;
@@ -219,37 +173,13 @@
       transition: background .18s, color .18s;
       white-space: nowrap;
     }
-
     .wb-btn:hover {
       background: var(--cream);
       color: var(--teal);
     }
 
-    .order-btn {
-      display: inline-block;
-      background: var(--cream);
-      color: var(--teal);
-      text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: .85rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      padding: 1rem 2.25rem;
-      border-radius: 100px;
-      transition: opacity .18s, transform .18s;
-      margin-top: 2rem;
-    }
-
-    .order-btn:hover {
-      opacity: .85;
-      transform: translateY(-1px);
-    }
-
-    /* FOOTER */
     footer {
       margin-top: 2.5rem;
-      font-family: 'Montserrat', sans-serif;
       font-size: .65rem;
       letter-spacing: .18em;
       text-transform: uppercase;
@@ -258,15 +188,9 @@
       text-align: center;
     }
 
-    /* MOBILE */
     @media (max-width: 480px) {
       .wb-card { flex-direction: column; text-align: center; }
-      .countdown { width: 100%; max-width: 360px; }
-      .count-block { padding: .85rem .6rem .7rem; min-width: 0; flex: 1; }
-      .count-num { font-size: 1.5rem; }
-      .count-unit { font-size: .42rem; letter-spacing: 0; }
-      .count-unit[data-short] { font-size: 0; }
-      .count-unit[data-short]::after { content: attr(data-short); font-size: .42rem; letter-spacing: .08em; }
+      .info { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -276,41 +200,21 @@
 
   <div class="rule">✦</div>
 
-  <p class="eyebrow">Nieuwe eigenaar · Frisse start</p>
-  <h1>We zijn er bijna!</h1>
-  <p class="subtitle">
-    't Zonnetje krijgt een nieuw hoofdstuk.<br>
-    Op <strong>zondag 5 juli om 12:00 uur</strong><br>zijn we gewoon weer voor je open.
-  </p>
-
-  <div class="countdown-wrap">
-    <div class="countdown">
-      <div class="count-block">
-        <span class="count-num" id="days">—</span>
-        <span class="count-unit">dagen</span>
-      </div>
-      <div class="count-block">
-        <span class="count-num" id="hours">—</span>
-        <span class="count-unit">uren</span>
-      </div>
-      <div class="count-block">
-        <span class="count-num" id="minutes">—</span>
-        <span class="count-unit" data-short="min">minuten</span>
-      </div>
-      <div class="count-block">
-        <span class="count-num" id="seconds">—</span>
-        <span class="count-unit" data-short="sec">seconden</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="date-pill">
-    Zondag 5 juli <span>·</span> 12:00 uur
-  </div>
-
   <a class="order-btn" href="https://www.e-food.nl/skin/basic/wervershoof/snackerie-t-zonnetje-1/browse" target="_blank" rel="noopener">
     Online bestellen
   </a>
+
+  <div class="info">
+    <div class="info-row">
+      <span class="info-label">Openingstijden</span>
+      <span class="info-value">Dinsdag t/m Zondag&nbsp;&nbsp;12:00 – 20:00<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Maandag gesloten</span></span>
+    </div>
+    <div class="info-divider"></div>
+    <div class="info-row">
+      <span class="info-label">Telefoon</span>
+      <span class="info-value"><a href="tel:0228583749">0228-583749</a></span>
+    </div>
+  </div>
 
   <div class="werkenbij">
     <p class="wb-label">Werken bij 't Zonnetje</p>
@@ -327,22 +231,5 @@
 
   <footer>Snackerie 't Zonnetje &nbsp;·&nbsp; Wervershoof &nbsp;·&nbsp; Sinds 1959</footer>
 
-  <script>
-    const target = new Date('2026-07-05T12:00:00');
-    function pad(n) { return String(n).padStart(2, '0'); }
-    function tick() {
-      const diff = target - Date.now();
-      if (diff <= 0) {
-        document.querySelector('.countdown-wrap').innerHTML = '<p style="font-family:Montserrat,sans-serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-60)">We zijn open!</p>';
-        return;
-      }
-      document.getElementById('days').textContent    = pad(Math.floor(diff / 86400000));
-      document.getElementById('hours').textContent   = pad(Math.floor((diff % 86400000) / 3600000));
-      document.getElementById('minutes').textContent = pad(Math.floor((diff % 3600000) / 60000));
-      document.getElementById('seconds').textContent = pad(Math.floor((diff % 60000) / 1000));
-    }
-    tick();
-    setInterval(tick, 1000);
-  </script>
 </body>
 </html>

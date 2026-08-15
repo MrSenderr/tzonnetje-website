@@ -53,6 +53,53 @@
       background: currentColor;
     }
 
+    /* NOTICE */
+    .notice {
+      width: 100%;
+      max-width: 480px;
+      border: 1px solid var(--cream-60);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+      display: none;
+    }
+
+    .notice-eyebrow {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--cream-60);
+      margin-bottom: .75rem;
+    }
+
+    .notice h2 {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .notice p {
+      font-size: .88rem;
+      color: var(--cream-60);
+      line-height: 1.75;
+    }
+
+    .notice p + p {
+      margin-top: .75rem;
+    }
+
+    .notice-footer {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--cream-20);
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--cream-60);
+    }
+
     /* ORDER INTRO */
     .order-intro {
       font-size: .8rem;
@@ -71,7 +118,6 @@
       background: var(--cream);
       color: var(--teal);
       text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
       font-size: .9rem;
       font-weight: 800;
       letter-spacing: .14em;
@@ -93,9 +139,6 @@
       border: 1px solid var(--cream-20);
       padding: 1.75rem 2rem;
       margin-bottom: 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
     }
 
     .info-row {
@@ -117,17 +160,6 @@
       font-weight: 600;
       color: var(--cream);
       line-height: 1.6;
-    }
-
-    .info-value a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .info-value a:hover { opacity: .75; }
-
-    .info-divider {
-      height: 1px;
-      background: var(--cream-20);
     }
 
     /* WERKENBIJ */
@@ -203,6 +235,7 @@
     @media (max-width: 480px) {
       .wb-card { flex-direction: column; text-align: center; }
       .info { padding: 1.5rem; }
+      .notice { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -212,16 +245,19 @@
 
   <div class="rule">✦</div>
 
-  <p class="order-intro">Bestel gemakkelijk online en haal op wanneer het jou uitkomt.</p>
+  <!-- Tijdelijke melding: zichtbaar via JS op basis van datum -->
+  <div class="notice" id="notice"></div>
 
-  <a class="order-btn" href="https://www.e-food.nl/skin/basic/wervershoof/snackerie-t-zonnetje-1/browse">
+  <p class="order-intro" id="order-intro">Bestel gemakkelijk online en haal op wanneer het jou uitkomt.</p>
+
+  <a class="order-btn" id="order-btn" href="https://www.e-food.nl/skin/basic/wervershoof/snackerie-t-zonnetje-1/browse">
     Online bestellen
   </a>
 
   <div class="info">
     <div class="info-row">
       <span class="info-label">Openingstijden</span>
-      <span class="info-value">Dinsdag t/m Zondag&nbsp;&nbsp;12:00 – 20:00<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Maandag gesloten</span></span>
+      <span class="info-value" id="openingstijden">Dinsdag t/m Zondag&nbsp;&nbsp;12:00 – 20:00<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Maandag gesloten</span></span>
     </div>
   </div>
 
@@ -239,6 +275,47 @@
   </div>
 
   <footer>Snackerie 't Zonnetje &nbsp;·&nbsp; Wervershoof &nbsp;·&nbsp; Sinds 1959</footer>
+
+  <script>
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = now.getMonth() + 1;
+    const d = now.getDate();
+
+    const isKermis  = y === 2026 && m === 8 && d >= 15 && d <= 18;
+    const isGesloten = y === 2026 && m === 8 && d >= 19 && d <= 24;
+
+    const notice   = document.getElementById('notice');
+    const intro    = document.getElementById('order-intro');
+    const btn      = document.getElementById('order-btn');
+    const tijden   = document.getElementById('openingstijden');
+
+    if (isKermis) {
+      notice.style.display = 'block';
+      notice.innerHTML = `
+        <p class="notice-eyebrow">🎡 Kermis Wervershoof 2026</p>
+        <h2>Kermis & Vakantie</h2>
+        <p>Van zaterdag 15 t/m dinsdag 18 augustus is het kermis in Wervershoof. Tijdens deze dagen nemen wij <strong style="color:var(--cream)">geen bestellingen aan</strong> via de bestelsite of telefonisch. Het is dan simpelweg te druk om alles op tijd klaar te hebben.</p>
+        <p>Bestellen kan alleen aan de balie.</p>
+        <div class="notice-footer">Direct na de kermis sluiten we even de deuren — van woensdag 19 t/m maandag 24 augustus zijn we gesloten. Vanaf dinsdag 25 augustus zijn we er weer!</div>
+      `;
+      intro.style.display = 'none';
+      btn.style.display = 'none';
+      tijden.innerHTML = 'Kermis: alleen aan de balie<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Geen online of telefonische bestellingen</span>';
+    } else if (isGesloten) {
+      notice.style.display = 'block';
+      notice.innerHTML = `
+        <p class="notice-eyebrow">Vakantie</p>
+        <h2>Wij zijn gesloten</h2>
+        <p>Na de kermis nemen we even rust. Van woensdag 19 t/m maandag 24 augustus zijn wij gesloten.</p>
+        <p>Vanaf <strong style="color:var(--cream)">dinsdag 25 augustus</strong> zijn we er weer — ook met online bestellen!</p>
+        <div class="notice-footer">Wij wensen iedereen fijne zomerdagen. Tot snel! 🎡</div>
+      `;
+      intro.style.display = 'none';
+      btn.style.display = 'none';
+      tijden.innerHTML = 'Gesloten t/m maandag 24 augustus<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Vanaf dinsdag 25 augustus weer open</span>';
+    }
+  </script>
 
 </body>
 </html>

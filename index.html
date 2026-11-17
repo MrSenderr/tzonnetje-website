@@ -382,9 +382,11 @@
     const btn      = document.getElementById('order-btn');
     const tijden   = document.getElementById('openingstijden');
 
-    /* Zondag is bij ons een andere dag dan de rest. Tussen vijf en zeven
-       gaan er bijna twee keer zoveel bestellingen over de toonbank als op
-       zaterdag op datzelfde moment.
+    /* Vrijdag, zaterdag en zondag: dezelfde dagen waarop het bandje op de
+       telefoon aanstaat, en dezelfde uren. Zondag is de zwaarste — om vijf
+       uur gaan er gemiddeld 57 bonnen over de toonbank tegen 29 op vrijdag
+       en 22 op zaterdag — maar wat iemand moet doen is alle drie de dagen
+       hetzelfde, dus staat er alle drie de dagen hetzelfde.
 
        Hier staat met opzet geen aantal minuten. Een snelheidsbelofte klopt
        alleen zolang er sloten vrij zijn, en breekt dus precies wanneer het
@@ -412,7 +414,9 @@
        Niet tonen als er een uitzondering speelt: een kermisweek of een
        gesloten dag heeft zijn eigen verhaal, en twee meldingen onder elkaar
        leest niemand. */
-    if (now.getDay() === 0 && !isKermis && !isGesloten) {
+    const DRUKKE_DAGEN = { 5: 'vrijdag', 6: 'zaterdag', 0: 'zondag' };
+    const drukkeDag = DRUKKE_DAGEN[now.getDay()];
+    if (drukkeDag && !isKermis && !isGesloten) {
       const strook = document.getElementById('drukte');
       const kop    = document.getElementById('drukte-kop');
       const tekst  = document.getElementById('drukte-tekst');
@@ -429,7 +433,7 @@
           'Telefonisch nemen we nu geen bestellingen aan. Vraag over een bestelling die al loopt? ' +
           '<strong>Toets 1.</strong>';
       } else {
-        kop.textContent = 'Vandaag, zondag';
+        kop.textContent = 'Vandaag, ' + drukkeDag;
         tekst.innerHTML = 'Vanaf een uur of vijf wordt het bij ons flink druk. ' +
           '<strong>Bestel online en kies een afhaaltijd</strong> \u2014 die gaan bij ons voor, ' +
           'dus dan sta je straks niet in de rij.';

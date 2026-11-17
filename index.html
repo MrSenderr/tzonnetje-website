@@ -285,12 +285,32 @@
     const isKermis  = y === 2026 && m === 8 && d >= 15 && d <= 18;
     const isGesloten = y === 2026 && m === 8 && d >= 19 && d <= 24;
 
+    /* 17 november 2026: eerst een stroomstoring in het dorp, daarna een
+       storing bij Ziggo. Zonder internet geen pin en geen bestelsite, en
+       daarmee bijna negentig procent van de omzet. Vandaar dicht.
+
+       Staat op de datum en verdwijnt dus vanzelf om middernacht. Dat is met
+       opzet: een melding die blijft hangen kost meer dan hij oplevert. */
+    const isStoringDicht = y === 2026 && m === 11 && d === 17;
+
     const notice   = document.getElementById('notice');
     const intro    = document.getElementById('order-intro');
     const btn      = document.getElementById('order-btn');
     const tijden   = document.getElementById('openingstijden');
 
-    if (isKermis) {
+    if (isStoringDicht) {
+      notice.style.display = 'block';
+      notice.innerHTML = `
+        <p class="notice-eyebrow">Storing in Wervershoof</p>
+        <h2>Vandaag gesloten</h2>
+        <p>Eerst een stroomstoring in het dorp, en sinds 13.12 uur ligt daar bovenop het internet eruit. Zonder internet kunnen we <strong style="color:var(--cream)">niet pinnen</strong> en werkt online bestellen niet.</p>
+        <p>Morgen staan we er weer gewoon vanaf 12.00 uur.</p>
+        <div class="notice-footer">Sorry voor het ongemak. Tot morgen!</div>
+      `;
+      intro.style.display = 'none';
+      btn.style.display = 'none';
+      tijden.innerHTML = 'Vandaag gesloten<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Morgen weer open vanaf 12:00</span>';
+    } else if (isKermis) {
       notice.style.display = 'block';
       notice.innerHTML = `
         <p class="notice-eyebrow">🎡 Kermis Wervershoof 2026</p>

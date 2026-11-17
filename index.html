@@ -325,7 +325,7 @@
       <span class="info-label">Bellen</span>
       <span class="info-value">
         <a href="tel:+31228583749">0228 58 37 49</a>
-        <span class="info-note">Op drukke momenten staan we met z'n allen te bakken en lukt opnemen vaak niet. Bestellen gaat het snelst online.</span>
+        <span class="info-note">Vrijdag t/m zondag nemen we tussen 17.00 en 20.00 uur geen bestellingen op over de telefoon — dan staan we met z'n allen te bakken. Gaat het over een bestelling die al loopt? <strong style="color:var(--cream);font-weight:600">Toets 1</strong>, dan gaat de telefoon gewoon over in de zaak.</span>
       </span>
     </div>
 
@@ -401,15 +401,21 @@
       const tekst  = document.getElementById('drukte-tekst');
       const uur    = now.getHours();
       strook.classList.add('aan');
-      if (uur >= 16 && uur < 19) {
+      // Zelfde venster als het bandje op de telefoon (17.00–20.00), anders
+      // staat hier "het is nu druk" terwijl je gewoon opneemt, of andersom.
+      if (uur >= 17 && uur < 20) {
         kop.textContent = 'Het is nu druk';
-        tekst.innerHTML = 'Zondag tussen vijf en zeven is het bij ons het drukst van de week. ' +
-          '<strong>Online bestellen met een afhaaltijd</strong> gaat het snelst \u2014 ' +
-          'dan hoef je niet in de rij. Bellen lukt ons op dit moment meestal niet.';
+        tekst.innerHTML = 'Zondagavond is het bij ons het drukst van de week. ' +
+          '<strong>Online bestellen is dan meestal sneller dan langskomen:</strong> je kiest zelf een tijd ' +
+          '\u2014 vaak al binnen twintig minuten \u2014 en het staat klaar als je binnenkomt. ' +
+          'Aan de toonbank wacht je op iedereen die v\u00f3\u00f3r je staat.<br><br>' +
+          'Telefonisch nemen we nu geen bestellingen aan. Vraag over een bestelling die al loopt? ' +
+          '<strong>Toets 1.</strong>';
       } else {
         kop.textContent = 'Vandaag, zondag';
         tekst.innerHTML = 'Vanaf een uur of vijf wordt het bij ons flink druk. ' +
-          '<strong>Bestel online en kies een afhaaltijd</strong>, dan staat het klaar als je komt.';
+          '<strong>Bestel online en kies een afhaaltijd</strong>, dan sta je straks niet in de rij. ' +
+          'Ook vlak van tevoren kan dat nog: meestal kun je binnen twintig minuten terecht.';
       }
     }
 

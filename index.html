@@ -141,10 +141,34 @@
       margin-bottom: 3rem;
     }
 
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
     .info-row {
       display: flex;
       flex-direction: column;
       gap: .4rem;
+    }
+
+    .info-value a {
+      color: var(--cream);
+      text-decoration: none;
+      border-bottom: 1px solid var(--cream-20);
+      transition: border-color .18s;
+    }
+    .info-value a:hover { border-color: var(--cream); }
+
+    /* De eerlijke regel onder het telefoonnummer. In de spits kan er niemand
+       bij de telefoon; dat verzwijgen levert alleen maar gemiste oproepen op
+       en klanten die denken dat ze genegeerd worden. */
+    .info-note {
+      font-size: .8rem;
+      font-weight: 400;
+      color: var(--cream-60);
+      line-height: 1.6;
     }
 
     .info-label {
@@ -259,9 +283,40 @@
       <span class="info-label">Openingstijden</span>
       <span class="info-value" id="openingstijden">Dinsdag t/m Zondag&nbsp;&nbsp;12:00 – 20:00<br><span style="color:var(--cream-60);font-size:.85rem;font-weight:400">Maandag gesloten</span></span>
     </div>
+
+    <div class="info-row">
+      <span class="info-label">Bellen</span>
+      <span class="info-value">
+        <a href="tel:+31228583749">0228 58 37 49</a>
+        <span class="info-note">Op drukke momenten staan we met z'n allen te bakken en lukt opnemen vaak niet. Bestellen gaat het snelst online.</span>
+      </span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Waar</span>
+      <span class="info-value">
+        <a href="https://maps.google.com/?q=Dorpsstraat+82,+1693+AH+Wervershoof" target="_blank" rel="noopener">Dorpsstraat 82, Wervershoof</a>
+      </span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Mailen</span>
+      <span class="info-value"><a href="mailto:info@snackerietzonnetje.nl">info@snackerietzonnetje.nl</a></span>
+    </div>
   </div>
 
   <div class="werkenbij">
+    <p class="wb-label">Een vraag of een aanvraag</p>
+    <div class="wb-card" style="margin-bottom:2.5rem">
+      <div>
+        <h3>Stuur ons een bericht</h3>
+        <p>Bestellen voor een groep of bedrijf, een vraag over<br>je bestelling, of iets anders — laat het weten.</p>
+      </div>
+      <a class="wb-btn" href="/contact.html">
+        Bericht sturen&nbsp;→
+      </a>
+    </div>
+
     <p class="wb-label">Werken bij 't Zonnetje</p>
     <div class="wb-card">
       <div>

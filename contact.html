@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stuur ons een bericht — Snackerie 't Zonnetje</title>
+<meta name="description" content="Een vraag, een aanvraag voor een groep of bedrijf, of iets anders? Laat het weten, wij nemen contact op." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --teal:     #003a41;
+    --cream:    #f0ebd5;
+    --cream-60: rgba(240,235,213,.6);
+    --cream-20: rgba(240,235,213,.15);
+    --bad:      #ffb4a6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--teal);
+    color: var(--cream);
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+  }
+  .logo { width: 140px; height: auto; margin-bottom: 2rem; }
+  .wrap { width: 100%; max-width: 560px; }
+  h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: .75rem; }
+  .lead { font-size: .95rem; line-height: 1.7; color: var(--cream-60); margin-bottom: .75rem; }
+  .lead strong { color: var(--cream); font-weight: 700; }
+
+  form { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 2rem; }
+  .rij { display: flex; flex-wrap: wrap; gap: 1.1rem; }
+  .rij > label { flex: 1 1 14rem; }
+  label { display: flex; flex-direction: column; gap: .45rem; }
+  .vraag {
+    font-size: .68rem; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--cream-60);
+  }
+  input, select, textarea {
+    font-family: inherit; font-size: 1rem; color: var(--cream);
+    background: transparent; border: 1px solid var(--cream-20);
+    padding: .85rem 1rem; min-height: 48px; width: 100%; border-radius: 2px;
+  }
+  textarea { min-height: 7rem; resize: vertical; line-height: 1.6; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--cream); }
+  select option { background: var(--teal); color: var(--cream); }
+  input::placeholder, textarea::placeholder { color: rgba(240,235,213,.35); }
+
+  /* De onderwerpkeuze als rijen om op te tikken, niet als uitklaplijst. Zo
+     zie je in één oogopslag waarvoor je hier terecht kunt — en een rij van
+     48 pixels raak je op een telefoon met natte handen ook. */
+  .keuzes { display: flex; flex-direction: column; gap: .5rem; }
+  .keuze {
+    /* flex-direction expliciet: de algemene label-regel hierboven zet hem op
+       column, en dan staat het bolletje bóven de tekst. */
+    display: flex; flex-direction: row; align-items: center; gap: .85rem;
+    border: 1px solid var(--cream-20); padding: .9rem 1rem;
+    min-height: 52px; cursor: pointer; border-radius: 2px;
+    transition: border-color .15s, background .15s;
+    font-size: .95rem; line-height: 1.4;
+  }
+  .keuze:hover { border-color: var(--cream-60); }
+  .keuze input { width: auto; min-height: 0; accent-color: var(--cream); flex-shrink: 0; }
+  .keuze:has(input:checked) { border-color: var(--cream); background: rgba(240,235,213,.06); }
+
+  /* De groepsvragen. Verborgen tot iemand daarvoor komt: wie een simpele
+     vraag heeft, hoeft geen datum te verzinnen. */
+  #groepsvelden { display: none; flex-direction: column; gap: 1.1rem; }
+  #groepsvelden.aan { display: flex; }
+
+  .lokvak { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  button {
+    font-family: inherit; background: var(--cream); color: var(--teal);
+    border: 0; font-size: .85rem; font-weight: 800; letter-spacing: .14em;
+    text-transform: uppercase; padding: 1.1rem 2rem; min-height: 52px;
+    border-radius: 100px; cursor: pointer; transition: opacity .18s;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  button:hover:not(:disabled) { opacity: .85; }
+
+  .fout { color: var(--bad); font-size: .9rem; line-height: 1.6; }
+
+  .klaar { border: 1px solid var(--cream-20); padding: 2rem; text-align: center; }
+  .klaar h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: .75rem; }
+  .klaar p { font-size: .95rem; line-height: 1.7; color: var(--cream-60); }
+
+  .voet {
+    margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--cream-20);
+    font-size: .85rem; line-height: 1.8; color: var(--cream-60);
+  }
+  .voet a { color: var(--cream); text-decoration: none; border-bottom: 1px solid var(--cream-20); }
+  .voet a:hover { border-color: var(--cream); }
+</style>
+</head>
+<body>
+  <a href="/"><img class="logo" src="logo.svg" alt="Snackerie 't Zonnetje" /></a>
+
+  <div class="wrap">
+    <div id="formulier">
+      <h1>Stuur ons een bericht</h1>
+      <p class="lead">
+        Laat weten waar het over gaat, dan nemen wij contact met je op.
+        Op drukke momenten komen we niet aan de telefoon toe — zo weet je zeker
+        dat je vraag bij ons terechtkomt.
+      </p>
+
+      <form id="bericht" novalidate>
+        <div>
+          <span class="vraag" style="display:block;margin-bottom:.6rem">Waar gaat het over?</span>
+          <div class="keuzes">
+            <label class="keuze"><input type="radio" name="onderwerp" value="groep" checked /> Bestellen voor een groep of bedrijf</label>
+            <label class="keuze"><input type="radio" name="onderwerp" value="bestelling" /> Een vraag over mijn bestelling</label>
+            <label class="keuze"><input type="radio" name="onderwerp" value="rekening" /> Zakelijk op rekening bestellen</label>
+            <label class="keuze"><input type="radio" name="onderwerp" value="klacht" /> Er is iets misgegaan</label>
+            <label class="keuze"><input type="radio" name="onderwerp" value="overig" /> Iets anders</label>
+          </div>
+        </div>
+
+        <div class="rij">
+          <label>
+            <span class="vraag">Je naam *</span>
+            <input name="naam" required maxlength="120" autocomplete="name" />
+          </label>
+          <label>
+            <span class="vraag">Bedrijf of vereniging</span>
+            <input name="bedrijf" maxlength="120" autocomplete="organization" />
+          </label>
+        </div>
+
+        <div class="rij">
+          <label>
+            <span class="vraag">Telefoonnummer</span>
+            <input name="telefoon" maxlength="40" inputmode="tel" autocomplete="tel" />
+          </label>
+          <label>
+            <span class="vraag">E-mailadres</span>
+            <input name="email" type="email" maxlength="160" autocomplete="email" />
+          </label>
+        </div>
+        <p class="lead" style="font-size:.8rem;margin:-.5rem 0 0">
+          Eén van de twee is genoeg — maar zonder kunnen we niet terug.
+        </p>
+
+        <div id="groepsvelden" class="aan">
+          <div class="rij">
+            <label>
+              <span class="vraag">Voor welke dag *</span>
+              <input name="voor_datum" type="date" id="datum" />
+            </label>
+            <label>
+              <span class="vraag">Hoe laat ophalen</span>
+              <input name="voor_tijd" type="time" />
+            </label>
+            <label>
+              <span class="vraag">Hoeveel personen</span>
+              <input name="personen" type="number" min="1" max="2000" inputmode="numeric" />
+            </label>
+          </div>
+
+          <label>
+            <span class="vraag">Betalen</span>
+            <select name="betaling">
+              <option value="onbekend">Weet ik nog niet</option>
+              <option value="vooraf">Vooraf of bij het ophalen</option>
+              <option value="rekening">Graag op rekening</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <span class="vraag" id="berichtlabel">Waar denk je aan</span>
+          <textarea name="bericht" maxlength="2000" id="berichtveld"
+            placeholder="Bijvoorbeeld: 25x patat met mayo en een frikandel, om 12 uur op te halen"></textarea>
+        </label>
+
+        <label class="lokvak" aria-hidden="true">
+          <span>Laat dit veld leeg</span>
+          <input name="website" tabindex="-1" autocomplete="off" />
+        </label>
+
+        <p class="fout" id="fout" hidden></p>
+
+        <div><button type="submit" id="verstuur">Bericht versturen</button></div>
+
+        <p class="lead" style="font-size:.8rem;margin:0">
+          We gebruiken je gegevens alleen om dit bericht af te handelen.
+        </p>
+      </form>
+    </div>
+
+    <div class="klaar" id="klaar" hidden>
+      <h2>Bedankt, hij staat genoteerd</h2>
+      <p>
+        We nemen binnen één werkdag contact met je op.
+        Let op: op maandag zijn we gesloten, dus een bericht van zondag pakken we dinsdag op.
+      </p>
+      <p style="margin-top:1rem"><a href="/" style="color:var(--cream)">Terug naar de site</a></p>
+    </div>
+
+    <div class="voet">
+      Liever bellen? <a href="tel:+31228583749">0228 58 37 49</a> — buiten de drukke uren.<br />
+      Eén of twee patatjes? Dat gaat het snelst via <a href="/">online bestellen</a>.<br />
+      Op zoek naar werk? Kijk op <a href="https://werkenbij.snackerietzonnetje.nl">werkenbij.snackerietzonnetje.nl</a>.
+    </div>
+  </div>
+
+<script>
+  const form   = document.getElementById('bericht');
+  const knop   = document.getElementById('verstuur');
+  const fout   = document.getElementById('fout');
+  const groeps = document.getElementById('groepsvelden');
+  const datum  = document.getElementById('datum');
+  const veld   = document.getElementById('berichtveld');
+  const label  = document.getElementById('berichtlabel');
+
+  // Niet in het verleden kunnen kiezen; dat scheelt een afgekeurd formulier.
+  datum.min = new Date().toISOString().slice(0, 10);
+
+  const TEKST = {
+    groep:      ['Waar denk je aan', 'Bijvoorbeeld: 25x patat met mayo en een frikandel, om 12 uur op te halen'],
+    bestelling: ['Je vraag', 'Bijvoorbeeld: ik heb besteld voor vanavond maar wil het tijdstip wijzigen'],
+    rekening:   ['Vertel kort wat je zoekt', 'Bijvoorbeeld: we willen maandelijks op rekening bestellen voor het personeel'],
+    klacht:     ['Wat ging er mis', 'Vertel wat er gebeurde, dan zoeken we het voor je uit'],
+    overig:     ['Je bericht', 'Waar kunnen we je mee helpen?'],
+  };
+
+  function bijwerken() {
+    const keuze = form.querySelector('input[name="onderwerp"]:checked').value;
+    groeps.classList.toggle('aan', keuze === 'groep');
+    const [kop, hint] = TEKST[keuze] || TEKST.overig;
+    label.textContent = kop;
+    veld.placeholder = hint;
+  }
+  form.querySelectorAll('input[name="onderwerp"]').forEach((r) => r.addEventListener('change', bijwerken));
+  bijwerken();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    fout.hidden = true;
+
+    const d = Object.fromEntries(new FormData(form).entries());
+    if (!d.naam?.trim()) {
+      fout.textContent = 'Vul je naam in.'; fout.hidden = false; return;
+    }
+    if (!d.telefoon?.trim() && !d.email?.trim()) {
+      fout.textContent = 'Vul een telefoonnummer of een e-mailadres in, anders kunnen we niet terug.';
+      fout.hidden = false; return;
+    }
+    if (d.onderwerp === 'groep' && !d.voor_datum) {
+      fout.textContent = 'Vul in voor welke dag het is.'; fout.hidden = false; return;
+    }
+    // Bij een ander onderwerp sturen we de groepsvelden niet mee; ze staan
+    // verborgen en wat er dan in staat is per ongeluk.
+    if (d.onderwerp !== 'groep') {
+      delete d.voor_datum; delete d.voor_tijd; delete d.personen; delete d.betaling;
+    }
+
+    knop.disabled = true;
+    knop.textContent = 'Bezig…';
+
+    try {
+      const r = await fetch('https://xukzumqddeateztmjpzf.supabase.co/functions/v1/contactformulier', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d),
+      });
+      const uit = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(uit.fout || 'Er ging iets mis.');
+      document.getElementById('formulier').hidden = true;
+      document.getElementById('klaar').hidden = false;
+      window.scrollTo(0, 0);
+    } catch (err) {
+      // Een bezoeker die netjes alles invulde mag niet met lege handen staan:
+      // het nummer staat erbij, dus bellen kan altijd nog.
+      fout.textContent = (err && err.message ? err.message : 'Er ging iets mis.') +
+        ' Lukt het niet? Bel ons op 0228 58 37 49.';
+      fout.hidden = false;
+      knop.disabled = false;
+      knop.textContent = 'Bericht versturen';
+    }
+  });
+</script>
+</body>
+</html>

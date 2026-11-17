@@ -132,6 +132,38 @@
       transform: translateY(-1px);
     }
 
+    /* DRUKTE
+       Een smal strookje, geen kader zoals de kermismelding. Dit komt elke
+       zondag terug; zet je dat in dezelfde grote doos als "wij zijn
+       gesloten", dan leert iedereen die doos binnen een maand overslaan. */
+    .drukte {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      border-top: 1px solid var(--cream-20);
+      border-bottom: 1px solid var(--cream-20);
+      padding: 1rem 1.25rem;
+      margin: -1.5rem 0 3rem;
+      text-align: center;
+    }
+    .drukte.aan { display: block; }
+
+    .drukte-kop {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--cream-60);
+      margin-bottom: .5rem;
+    }
+
+    .drukte-tekst {
+      font-size: .88rem;
+      line-height: 1.65;
+      color: var(--cream);
+    }
+    .drukte-tekst strong { font-weight: 700; }
+
     /* INFO BLOCK */
     .info {
       width: 100%;
@@ -278,6 +310,11 @@
     Online bestellen
   </a>
 
+  <div class="drukte" id="drukte">
+    <p class="drukte-kop" id="drukte-kop"></p>
+    <p class="drukte-tekst" id="drukte-tekst"></p>
+  </div>
+
   <div class="info">
     <div class="info-row">
       <span class="info-label">Openingstijden</span>
@@ -344,6 +381,37 @@
     const intro    = document.getElementById('order-intro');
     const btn      = document.getElementById('order-btn');
     const tijden   = document.getElementById('openingstijden');
+
+    /* Zondag is bij ons een andere dag dan de rest. Tussen vijf en zeven
+       gaan er bijna twee keer zoveel bestellingen over de toonbank als op
+       zaterdag op datzelfde moment. Dat mag je mensen vertellen: wie het
+       weet bestelt online met een tijd en staat niet in de rij — en dat
+       scheelt voor allebei.
+
+       Overdag een vooruitblik, vanaf vier uur de mededeling dat het nú zo
+       is. "Het is druk" om elf uur 's ochtends is onzin en kost je
+       geloofwaardigheid voor als het er wel toe doet.
+
+       Niet tonen als er een uitzondering speelt: een kermisweek of een
+       gesloten dag heeft zijn eigen verhaal, en twee meldingen onder elkaar
+       leest niemand. */
+    if (now.getDay() === 0 && !isKermis && !isGesloten) {
+      const strook = document.getElementById('drukte');
+      const kop    = document.getElementById('drukte-kop');
+      const tekst  = document.getElementById('drukte-tekst');
+      const uur    = now.getHours();
+      strook.classList.add('aan');
+      if (uur >= 16 && uur < 19) {
+        kop.textContent = 'Het is nu druk';
+        tekst.innerHTML = 'Zondag tussen vijf en zeven is het bij ons het drukst van de week. ' +
+          '<strong>Online bestellen met een afhaaltijd</strong> gaat het snelst \u2014 ' +
+          'dan hoef je niet in de rij. Bellen lukt ons op dit moment meestal niet.';
+      } else {
+        kop.textContent = 'Vandaag, zondag';
+        tekst.innerHTML = 'Vanaf een uur of vijf wordt het bij ons flink druk. ' +
+          '<strong>Bestel online en kies een afhaaltijd</strong>, dan staat het klaar als je komt.';
+      }
+    }
 
     if (isKermis) {
       notice.style.display = 'block';

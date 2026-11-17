@@ -285,12 +285,32 @@
     const isKermis  = y === 2026 && m === 8 && d >= 15 && d <= 18;
     const isGesloten = y === 2026 && m === 8 && d >= 19 && d <= 24;
 
+    /* Stroomstoring 17 november 2026. De bestelsite van Mplus laat een
+       opgeslagen kaart zien terwijl zijn database plat ligt, dus een klant
+       stelt een hele bestelling samen en loopt dan pas vast. Beter om de knop
+       weg te halen dan iemand daarin te laten lopen.
+
+       Staat met opzet niet op "wij zijn gesloten": komt de stroom op tijd
+       terug, dan kan de balie gewoon open zonder dat hier iets recht hoeft. */
+    const isStoring = y === 2026 && m === 11 && d === 17;
+
     const notice   = document.getElementById('notice');
     const intro    = document.getElementById('order-intro');
     const btn      = document.getElementById('order-btn');
     const tijden   = document.getElementById('openingstijden');
 
-    if (isKermis) {
+    if (isStoring) {
+      notice.style.display = 'block';
+      notice.innerHTML = `
+        <p class="notice-eyebrow">Stroomstoring in Wervershoof</p>
+        <h2>Online bestellen werkt nu niet</h2>
+        <p>Sinds 12.52 uur zit een groot deel van het dorp zonder stroom. Daardoor doet onze bestelsite het niet — je kunt de kaart wel bekijken, maar een bestelling komt <strong style="color:var(--cream)">niet bij ons aan</strong>.</p>
+        <p>Zodra de stroom terug is, zetten we alles weer aan.</p>
+        <div class="notice-footer">Houd onze Facebook in de gaten voor het laatste nieuws.</div>
+      `;
+      intro.style.display = 'none';
+      btn.style.display = 'none';
+    } else if (isKermis) {
       notice.style.display = 'block';
       notice.innerHTML = `
         <p class="notice-eyebrow">🎡 Kermis Wervershoof 2026</p>

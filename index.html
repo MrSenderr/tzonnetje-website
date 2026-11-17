@@ -384,9 +384,18 @@
 
     /* Zondag is bij ons een andere dag dan de rest. Tussen vijf en zeven
        gaan er bijna twee keer zoveel bestellingen over de toonbank als op
-       zaterdag op datzelfde moment. Dat mag je mensen vertellen: wie het
-       weet bestelt online met een tijd en staat niet in de rij — en dat
-       scheelt voor allebei.
+       zaterdag op datzelfde moment.
+
+       Hier staat met opzet geen aantal minuten. Een snelheidsbelofte klopt
+       alleen zolang er sloten vrij zijn, en breekt dus precies wanneer het
+       ertoe doet — en dan stuurt hij mensen naar de toonbank, waar het juist
+       vastloopt.
+
+       Het argument is hoe de keuken werkt: een online bestelling heeft een
+       tijd en daar wordt naartoe gewerkt, een klant aan de balie sluit
+       achteraan aan. Dat blijft waar als alle tijden vol zitten, en dat is
+       precies het moment waarop iemand anders zou denken "dan ga ik wel even
+       langs".
 
        Overdag een vooruitblik, vanaf vier uur de mededeling dat het nú zo
        is. "Het is druk" om elf uur 's ochtends is onzin en kost je
@@ -405,17 +414,17 @@
       // staat hier "het is nu druk" terwijl je gewoon opneemt, of andersom.
       if (uur >= 17 && uur < 20) {
         kop.textContent = 'Het is nu druk';
-        tekst.innerHTML = 'Zondagavond is het bij ons het drukst van de week. ' +
-          '<strong>Online bestellen is dan meestal sneller dan langskomen:</strong> je kiest zelf een tijd ' +
-          '\u2014 vaak al binnen twintig minuten \u2014 en het staat klaar als je binnenkomt. ' +
-          'Aan de toonbank wacht je op iedereen die v\u00f3\u00f3r je staat.<br><br>' +
+        tekst.innerHTML = '<strong>Bestel online \u2014 ook als de eerste tijden al vol zijn.</strong> ' +
+          'Online bestellingen gaan bij ons voor: daar hangt een tijd aan, en daar werken ' +
+          'we naartoe. Aan de toonbank sluit je achteraan aan, en juist als het druk is ' +
+          'wacht je daar het langst.<br><br>' +
           'Telefonisch nemen we nu geen bestellingen aan. Vraag over een bestelling die al loopt? ' +
           '<strong>Toets 1.</strong>';
       } else {
         kop.textContent = 'Vandaag, zondag';
         tekst.innerHTML = 'Vanaf een uur of vijf wordt het bij ons flink druk. ' +
-          '<strong>Bestel online en kies een afhaaltijd</strong>, dan sta je straks niet in de rij. ' +
-          'Ook vlak van tevoren kan dat nog: meestal kun je binnen twintig minuten terecht.';
+          '<strong>Bestel online en kies een afhaaltijd</strong> \u2014 die gaan bij ons voor, ' +
+          'dus dan sta je straks niet in de rij.';
       }
     }
 

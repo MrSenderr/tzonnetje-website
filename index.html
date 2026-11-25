@@ -6,21 +6,34 @@
   <title>Snackerie 't Zonnetje — Wervershoof</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Prata&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* De waarden uit het style sheet van de huisstijl, gelijk aan die van
+       de bestelsite. Stonden hier net ernaast (#003a41 / #f0ebd5), en dat
+       verschil valt op zodra je van de ene site naar de andere klikt --
+       straks dus bij elke bestelling.
+
+       Het goud is geen letterkleur: #a28229 haalt 3,4:1 op creme. Alleen
+       voor lijnen, vlakken en ornamenten. */
     :root {
-      --teal:     #003a41;
-      --cream:    #f0ebd5;
-      --cream-60: rgba(240,235,213,.6);
-      --cream-20: rgba(240,235,213,.15);
+      --teal:     #1c4a4c;
+      --cream:    #fdf8ea;
+      /* 68% en niet 60%: op de nieuwe ondergrond haalde .6 nog 4,47:1 en
+         dat is net onder de grens van 4,5 voor gewone tekst. Hetzelfde
+         percentage dat de bestelsite voor zachte tekst gebruikt. */
+      --cream-60: rgba(253,248,234,.68);
+      --cream-20: rgba(253,248,234,.15);
+      --goud:     #a28229;
+      --letter:     'Figtree', system-ui, -apple-system, sans-serif;
+      --letter-kop: 'Prata', Georgia, serif;
     }
 
     body {
       background: var(--teal);
       color: var(--cream);
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--letter);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -42,7 +55,8 @@
       align-items: center;
       gap: .75rem;
       margin: 0 auto 2.75rem;
-      color: var(--cream-60);
+      /* Goud mag hier wel: dit is een ornament en geen tekst. */
+      color: var(--goud);
       font-size: .7rem;
       letter-spacing: .3em;
     }
@@ -72,9 +86,13 @@
       margin-bottom: .75rem;
     }
 
+    /* De kop zoals op de menukaart: met schreef, in kapitalen. Alleen hier
+       en niet op de kleine labels -- een displayletter verdient zijn geld
+       pas op dit formaat, daaronder zie je het verschil toch niet. */
     .notice h2 {
-      font-size: clamp(1.1rem, 3vw, 1.4rem);
-      font-weight: 800;
+      font-family: var(--letter-kop);
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      font-weight: 400;
       text-transform: uppercase;
       letter-spacing: .04em;
       margin-bottom: 1rem;
